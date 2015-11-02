@@ -1,0 +1,10 @@
+{
+  "name": "Arryn",
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/spot",
+      "proxyUrl": "http://106.186.119.228/spot"
+    }
+  ]
+}

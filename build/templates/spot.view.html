@@ -1,0 +1,108 @@
+<ion-view view-title="{{spot.name}}">
+    <ion-content ng-controller="SpotCtrl">
+        <div class="card">
+            <div class="item item-image">
+                <img ng-src="{{spot.main_img_url}}" alt="">
+                <div class="image-caption-bg row">
+                    <div class="image-caption col-80">
+                        {{spot.name}}
+                    </div>
+                    <div class="col-20">
+                        <a ng-click="control()" id="audio-control"><i class="icon" ng-class="{'play':'ion-android-volume-up', 'pause': 'ion-android-volume-mute'}[audio_control]"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+          <div class="item item-divider">
+            <i class="icon ion-document-text"></i> 简介
+          </div>
+          <div class="item item-text-wrap">
+            {{spot.text_intro}}
+          </div>
+        </div>
+        <div class="card gallery">
+          <div class="item item-divider">
+            <div class="left"><i class="icon ion-images"></i> 相册</div>
+            <!-- <div class="right"><a ui-sref="poi.gallery({poi_id: poi.id})">更多 <i class="icon ion-chevron-right"></i></a></div> -->
+          </div>
+          <div class="item item-image">
+            <div class="row">
+              <div class="col" ng-repeat="(index, photo) in photos | limitTo: 3"><a ng-click="view(index)"><img ng-src="{{photo.msrc}}" alt=""></a></div>
+            </div>
+          </div>
+        </div>
+        
+        <audio id="audio" ng-src="{{voice_url()}}"></audio>
+    </ion-content>
+
+    <div class="bar bar-footer">
+        <a class="button button-outline button-balanced button-small" id="follow-btn" href="javascript:BeaconAddContactJsBridge.invoke('jumpAddContact');">关注</a> <div class="title">{{scenic.nickname}}</div>
+    </div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+        <div class="pswp__container">
+            <!-- don't modify these 3 pswp__item elements, data is added later on -->
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+    </div>
+
+</ion-view>

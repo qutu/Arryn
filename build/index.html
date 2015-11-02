@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><base href="/"><meta charset=utf-8><meta name=viewport content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"><title></title><link rel=stylesheet href=styles/app.css><script src=js/lib-a72fc5b2aa.js></script><script src=js/app-31addcc4b6.js></script></head><body ng-app=starter><ion-nav-view></ion-nav-view><script type=text/javascript src=http://zb.weixin.qq.com/nearbycgi/addcontact/BeaconAddContactJsBridge.js>
+    </script><script type=text/javascript>
+        BeaconAddContactJsBridge.ready(function(){
+            //判断是否关注
+            BeaconAddContactJsBridge.invoke('checkAddContactStatus',{} ,function(apiResult){
+                if(apiResult.err_code == 0){
+                    var status = apiResult.data;
+                    var follow_btn = document.querySelector('#follow-btn');
+                    if(status == 1){
+                        // alert('已关注');
+                        follow_btn.innerHTML = '已关注'
+                    }else{
+                        follow_btn.innerHTML = '关注'
+                        // alert('未关注');
+                        //跳转到关注页
+                      // BeaconAddContactJsBridge.invoke('jumpAddContact');
+                    }
+                }else{
+                    alert(apiResult.err_msg)
+                }
+            });
+        });
+    </script></body></html>

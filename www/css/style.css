@@ -1,0 +1,111 @@
+/* Empty. Add your own CSS if you like */
+.pane{
+    background: #EBECED;
+}
+
+.card{
+    box-shadow: none;
+    border-style: solid;
+    border-width: 1px 0;
+    border-color: #DDD;
+    margin: 10px 0;
+    border-radius:0;
+}
+
+.card:first-child{
+    margin: 0;
+    border-top: 0;
+}
+
+.item{
+    color: #7C7C7C;
+    font-size: 14px;
+    border-radius: 0;
+}
+
+.card .item:last-child, .card .item:first-child{
+    border-radius: 0;
+}
+
+.item-divider{
+    background: #FFF;
+    color: #2E2E2E;
+    font-size: 15px;
+}
+
+.item-text-wrap{
+    padding: 10px;
+}
+
+.image-caption-bg{
+    height: 30px;
+    background:rgba(0,0,0,0.2);
+    position: relative;
+    top: -30px;
+    margin-bottom: -30px;
+}
+
+.image-caption-bg.row{
+    padding: 0;
+}
+
+.image-caption{
+    color: #FFF;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    text-align: left;
+    padding: 0 10px;
+}
+
+#audio-control{
+    color: #FFF;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+}
+
+#audio-control .icon{
+    color: #FFF;
+}
+
+.card .icon{
+    color: #7C7C7C;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+.img-responsive{
+    display:block;
+    max-width:100%;
+    height:auto;
+}
+
+.col{
+    background: #000;
+    margin-right: 1px;
+}
+
+.col:after{
+    display:inline-block;
+    width:0;
+    height:100%;
+    vertical-align:middle;
+    content:'';
+}
+
+.col a{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.scroll-content {
+    margin-bottom: 50px;
+}
