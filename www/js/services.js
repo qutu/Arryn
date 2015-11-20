@@ -1,17 +1,17 @@
 angular.module('starter.services', [])
   .factory('Scenic', function ($resource, apiRoot) {
-    return $resource(apiRoot + 'scenic/:id', {}, {})
+    return $resource(apiRoot + 'scenics/:id', {}, {})
   })
 
   .factory('Spot', function ($resource, apiRoot) {
     // Might use a resource here that returns a JSON array
-    return $resource(apiRoot + 'spot/:id', {}, {})
+    return $resource(apiRoot + 'spots/:id', {}, {})
   })
 
   .factory('ScenicSpot', function ($resource, apiRoot) {
-    return $resource(apiRoot + 'scenic/:scenic_id/spot/:spot_id', {}, {})
+    return $resource(apiRoot + 'scenics/:scenic_id/spots/:spot_id', {}, {})
   })
 
   .factory('SpotPhoto', function ($resource, apiRoot) {
-    return $resource(apiRoot + 'spot/:spot_id/photos/:photo_id', {}, {})
+    return $resource(apiRoot + 'spots/:spot_id/photos/:photo_id', {}, {})
   })
