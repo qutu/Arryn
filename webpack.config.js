@@ -18,9 +18,12 @@ module.exports = {
     browsers: '> 1%, last 2 versions'
   },
   module: {
-    loaders: [{ 
-      test: /\.vue$/, 
-      loader: 'vue' 
+    loaders: [
+    { test: /\.vue$/, loader: 'vue' },
+    {
+      test: /\.js$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: 'babel-loader'
     },{
       test: /\.css$/,
       exclude: /(node_modules|bower_components)/,
@@ -29,7 +32,6 @@ module.exports = {
     { test: /\.jpg$/, loader: "file-loader" },
     { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }]
   },
-  devtool: '#source-map',
   devServer: {
     contentBase: './',
     proxy: {
