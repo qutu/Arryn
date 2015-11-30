@@ -1,21 +1,17 @@
+var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var plugins = [
-  new webpack.ProvidePlugin({
-    riot: 'riot'
-  }),
-  new ExtractTextPlugin('arryn.min.css')
-]
+var plugins = [ new ExtractTextPlugin('app.min.css') ]
 
 if (process.env.NODE_ENV === 'production')
   plugins.push(new webpack.optimize.UglifyJsPlugin())
 
 module.exports = {
-  entry: './libs/arryn.js',
+  entry: './libs/app.js',
   output: {
-    path: __dirname + '/dist',
+    path: path.join(__dirname, 'dist'),
     publicPath: '/dist/',
-    filename: 'arryn.min.js'
+    filename: 'app.min.js'
   },
   plugins: plugins,
   cssnext: {
@@ -33,6 +29,7 @@ module.exports = {
     { test: /\.jpg$/, loader: "file-loader" },
     { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }]
   },
+  devtool: '#source-map',
   devServer: {
     contentBase: './',
     proxy: {
