@@ -1,0 +1,80 @@
+.scenic-header {
+  background-color: #ddd;
+  position: relative;
+}
+
+.scenic-header h1.scenic-title {
+  margin-top: 0px;
+  color: #fff;
+  font-size: 20px;
+  padding-top: 100px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+  background: linear-gradient(to bottom, rgba(0,0,0, 0.0) 0%, rgba(0,0,0, 0.4) 90%);
+}
+
+.level {
+  font-size: 14px;
+  color: #999;
+  color: #fff;
+}
+
+.scenic-map-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 12px;
+}
+
+.scenic-nav ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  border-bottom: 1px solid #ddd;
+}
+
+.scenic-nav li {
+  float: left;
+  width: 33%;
+}
+
+.scenic-nav li a {
+  display: block;
+  text-align: center;
+  padding: 10px 0px;
+  background-color: #f5f5f5;
+  text-decoration: none;
+  color: #444;
+}
+
+.scenic-section {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-left: 0px;
+  border-right: 0px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+.scenic-section h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.scenic-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0px;
+  padding: 0px;
+}
+
+.desc {
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  padding-top: 0px;
+  color: #999;
+}

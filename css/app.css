@@ -3,3 +3,5 @@
 
 /* App Styles */
 @import url(./vars.css);
+@import url(./basic.css);
+@import url(./scenic.css);
