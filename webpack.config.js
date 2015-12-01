@@ -35,8 +35,8 @@ module.exports = {
   devServer: {
     contentBase: './',
     proxy: {
-      '/spot/*': {
-        target: 'http://106.186.119.228/spot/',
+      '/scenics/*': {
+        target: 'http://api.byin.cc/',
         changeOrigin: true
       }
     }
