@@ -39,8 +39,8 @@ function fetchData(type, data, getMode) {
   }
 
   function success(result) {
-    if (result.code !== 0)
-      throw new Error(result.message)
+    if (result.errcode)
+      throw new Error(result.errmsg)
 
     return Promise.resolve(result)
   }
@@ -97,5 +97,5 @@ function _formatForm(obj) {
 }
 
 function _endPoint(type) {
-  return `${window.location.protocol}//${window.location.host}/api/${type}`
+  return `${window.location.protocol}//${window.location.host}/${type}?format=json`
 }
