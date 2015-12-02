@@ -1,5 +1,5 @@
 <template>
-  <div class="spot">
+  <div class="spot-container">
     <router-view></router-view>
   </div>
 </template>

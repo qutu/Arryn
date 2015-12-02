@@ -1,8 +1,9 @@
 <template>
   <header class="scenic-header clearfix" 
     v-bind:style="{ 'background-image': cover }">
-    <h1 class="scenic-title">{{ spot.name }} <span class="level">{{ spot.level }}A</span></h1>
+    <h1 class="scenic-title">{{ spot.name }}</h1>
     <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button">Map</a>
+    <a v-link="{ path: '../spots' }" class="back">&lt; Back</a>
   </header>
   <div id="spot-sp" class="spot-sp sp"></div>
   <section class="scenic-section">
@@ -10,7 +11,7 @@
   </section>
   <section class="scenic-section">
     <h3 class="scenic-title">简介</h3>
-    <p class="desc">{{ scenic.text_intro }}</p>
+    <p class="desc">{{ spot.text_intro }}</p>
   </section>
   <section class="scenic-section" 
     v-if="spot.photos">
