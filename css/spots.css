@@ -33,3 +33,11 @@
   color: #999;
   line-height: 1.8;
 }
+
+.play-audio {
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  color: #444;
+  font-weight: bold;
+}

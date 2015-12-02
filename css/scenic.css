@@ -1,6 +1,7 @@
 .scenic-header {
   background-color: #ddd;
   position: relative;
+  background-size: cover;
 }
 
 .scenic-header h1.scenic-title {
@@ -12,6 +13,15 @@
   padding-left: 10px;
   margin-bottom: 0px;
   background: linear-gradient(to bottom, rgba(0,0,0, 0.0) 0%, rgba(0,0,0, 0.4) 90%);
+}
+
+.scenic-header .back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #fff;
+  font-size: 12px;
+  text-decoration: none;
 }
 
 .level {
