@@ -1,6 +1,6 @@
 <template>
   <header class="sub-header">
-    <a v-link="{ path: '../' + $route.params.id }" class="back">&lt; Back</a>
+    <a v-link="{ path: '../' + $route.params.id }" class="back">&lt; {{ name }}</a>
   </header>
   <div class="spots cleafix">
     <div class="spot" v-for="spot in spots" @click="goto(spot.id)">
@@ -26,6 +26,7 @@
     },
     data() {
       return {
+        name: '返回',
         err: null,
         spots: [],
       }
@@ -33,6 +34,9 @@
     created() {
       Get(`scenics/${this.$route.params.id}/spots`)
         .then(result => this.spots = result)
+        .catch(err => this.err = err)
+      Get(`scenics/${this.$route.params.id}`)
+        .then(result => this.name = result.name)
         .catch(err => this.err = err)
     },
     methods: {
