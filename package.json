@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "node_modules/.bin/serve -p 8080 ./dist",
+    "serve": "node_modules/.bin/webpack-dev-server --inline --host 0.0.0.0",
     "dev": "node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "NODE_ENV=production node_modules/.bin/webpack"
   },
@@ -25,7 +25,6 @@
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.4",
     "script-loader": "^0.6.1",
-    "serve": "^1.4.0",
     "style-loader": "^0.13.0",
     "uglify-js": "^2.4.23",
     "uglify-loader": "^1.2.0",
