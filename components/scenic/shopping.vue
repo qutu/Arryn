@@ -1,3 +1,48 @@
 <template>
-  <h1>shop</h1>
+  <header class="sub-header">
+    <a v-link="{ path: '../' + $route.params.id }" class="back">&lt; {{ name }}</a>
+  </header>
+  <div class="spots cleafix">
+    <div class="spot" v-for="spot in spots" @click="goto(spot.id)">
+      <div class="spot-thumbnail">
+        <img v-bind:src="spot.main_img_url" alt="">
+      </div>
+      <div class="spot-text">
+        <h4 class="spot-name">{{ spot.name }}</h4>
+        <p class="spot-desc">{{ spot.text_intro | limit }}</p>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+  import { Get } from '../../libs/api'
+
+  export default {
+    filters: {
+      limit(value) {
+        return value.substr(0, 50) + '...'
+      }
+    },
+    data() {
+      return {
+        name: '返回',
+        err: null,
+        spots: [],
+      }
+    },
+    created() {
+      Get(`scenics/${this.$route.params.id}/spots`)
+        .then(result => this.spots = result.filter(item => spot_type !== 1))
+        .catch(err => this.err = err)
+      Get(`scenics/${this.$route.params.id}`)
+        .then(result => this.name = result.name)
+        .catch(err => this.err = err)
+    },
+    methods: {
+      goto(spotId) {
+        this.$route.router.go(`/scenics/${this.$route.params.id}/spots/${spotId}`)
+      }
+    }
+  }
+</script>
