@@ -7,6 +7,7 @@ import spot from '../components/spot.vue'
 import spotHome from '../components/spot/home.vue'
 
 import map from '../components/map.vue'
+import tour from '../components/tour.vue'
 import photos from '../components/photos.vue'
 
 export default {
@@ -24,6 +25,9 @@ export default {
       },
       '/map': {
         component: map
+      },
+      '/tour': {
+        component: tour
       },
       '/spots': {
         component: {
