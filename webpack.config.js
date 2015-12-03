@@ -10,7 +10,6 @@ module.exports = {
   entry: './libs/app.js',
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/',
     filename: 'app.min.js'
   },
   plugins: plugins,
@@ -33,7 +32,7 @@ module.exports = {
     { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }]
   },
   devServer: {
-    contentBase: './',
+    contentBase: './dist',
     proxy: {
       '/scenics/*': {
         target: 'http://api.byin.cc/',
