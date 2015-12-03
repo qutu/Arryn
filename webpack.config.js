@@ -38,6 +38,10 @@ module.exports = {
       '/scenics/*': {
         target: 'http://api.byin.cc/',
         changeOrigin: true
+      },
+      '/spots/*': {
+        target: 'http://api.byin.cc/',
+        changeOrigin: true
       }
     }
   }
