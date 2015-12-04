@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "node_modules/.bin/webpack-dev-server --inline --host 0.0.0.0",
+    "serve-test": "node_modules/.bin/webpack-dev-server --inline --host 0.0.0.0 --quiet > /dev/null &",
     "dev": "node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "NODE_ENV=production node_modules/.bin/webpack"
   },
