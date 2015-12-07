@@ -1,6 +1,7 @@
 'use strict';
 
 import { isBlank } from './underscore'
+import { API_ENDPOINT } from './consts'
 
 // lowlevel api
 export default {
@@ -97,5 +98,5 @@ function _formatForm(obj) {
 }
 
 function _endPoint(type) {
-  return `${window.location.protocol}//${window.location.host}/${type}?format=json`
+  return `${window.location.protocol}//${API_ENDPOINT}/${type}?format=json`
 }
