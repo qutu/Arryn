@@ -32,16 +32,6 @@ module.exports = {
     { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }]
   },
   devServer: {
-    contentBase: './dist',
-    proxy: {
-      '/scenics/*': {
-        target: 'http://api.byin.cc/',
-        changeOrigin: true
-      },
-      '/spots/*': {
-        target: 'http://api.byin.cc/',
-        changeOrigin: true
-      }
-    }
+    contentBase: './dist'
   }
 }
