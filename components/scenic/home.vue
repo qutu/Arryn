@@ -2,7 +2,7 @@
   <header class="scenic-header clearfix" 
     v-bind:style="{ 'background-image': cover }">
     <h1 class="scenic-title">{{ scenic.name }} <span class="level">{{ scenic.level }}A</span></h1>
-    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button">地图</a>
+    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button"><i class="material-icons">place</i></a>
   </header>
   <nav class="scenic-nav">
     <ul class="clearfix">

@@ -22,6 +22,18 @@ body a {
   padding: 0px 20px;
 }
 
+.sub-header .back {
+  padding-left: 20px;
+}
+
+.sub-header .back i {
+  position: absolute;
+  z-index: 88;
+  left: 10px;
+  top: 12px;
+  font-size: 26px;
+}
+
 .sp {
   background-color: #ddd;
   height: 50px;

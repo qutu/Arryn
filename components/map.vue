@@ -1,7 +1,7 @@
 <template>
   <header class="sub-header">
     <a v-link="{ path: goBack() }" 
-      class="back">返回</a>
+      class="back"><i class="material-icons">chevron_left</i></a>
   </header>
   <section id="map-section" 
     class="map-section">

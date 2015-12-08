@@ -2,8 +2,8 @@
   <header class="scenic-header clearfix" 
     v-bind:style="{ 'background-image': cover }">
     <h1 class="scenic-title">{{ spot.name }}</h1>
-    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button">地图</a>
-    <a v-link="{ path: '../spots' }" class="back">&lt; 返回</a>
+    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button"><i class="material-icons">place</i></a>
+    <a v-link="{ path: '../spots' }" class="back"><i class="material-icons">chevron_left</i></a>
   </header>
   <ad></ad>
   <section class="scenic-section">

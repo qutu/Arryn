@@ -4,6 +4,7 @@
 
 /* App Styles */
 @import url(./vars.css);
+@import url(./fonts.css);
 @import url(./basic.css);
 @import url(./scenic.css);
 @import url(./spots.css);

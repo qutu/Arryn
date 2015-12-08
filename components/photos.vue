@@ -1,7 +1,7 @@
 <template>
   <header class="sub-header">
     <a v-link="{ path: goBack() }" 
-      class="back">&lt; {{name}}
+      class="back"><i class="material-icons">chevron_left</i> {{name}}
     </a>
   </header>
   <section class="scenic-section photos-section">
