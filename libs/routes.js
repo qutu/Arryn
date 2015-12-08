@@ -38,12 +38,14 @@ export default {
             component: scenicSpots,
           },
           '/:spotId': {
+            name: 'spot',
             component: spot,
             subRoutes: {
               '/': {
                 component: spotHome
               },
               '/photos': {
+                name: 'spot-photos',
                 component: photos
               },
               '/map': {

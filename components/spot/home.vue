@@ -35,7 +35,7 @@
         <div class="spots cleafix">
           <div class="spot" 
             v-for="spot in nearby" 
-            @click="goto(spot.id)">
+            @click="refresh(spot.id)">
             <div class="spot-thumbnail">
               <img v-bind:src="spot.main_img_url" alt="">
             </div>
@@ -96,12 +96,34 @@
         .catch(err => this.err = err)
     },
     methods: {
-      goto(spotId) {
-        const uri = spotId ? 
-          `/scenics/${this.$route.params.id}/spots/${spotId}`:
-          `/scenics/${this.$route.params.id}/spots/${this.$route.params.spotId}/photos`
+      refresh(spotId) {
+        Get(`scenics/${this.$route.params.id}/spots/${spotId}`)
+        // Fetch spot details
+        .then(result => {
+          this.spot = result
 
-        return this.$route.router.go(uri)
+          if (result.main_img_url)
+            this.cover = `url(${result.main_img_url})`
+
+          return Get(`spots/${spotId}/photos`)
+        })
+        // fetch photos
+        .then(photos => {
+          this.photos = photos 
+          return Get(`spots/${this.spot.id}/nearby`)
+        })
+        // Fetch nearby spots
+        .then(nearby => this.nearby = nearby)
+        .catch(err => this.err = err)
+      },
+      goto(spotId) {
+        return this.$route.router.go({
+          name: spotId ? 'spot' : 'spot-photos',
+          params: {
+            id: this.$route.params.id,
+            spotId: spotId || this.$route.params.spotId
+          }
+        })
       },
       // Change the source of nearby spots
       changeTab() {
