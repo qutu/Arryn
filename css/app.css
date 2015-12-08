@@ -1,5 +1,6 @@
 /* CSS libs */
 @import 'normalize.css/normalize.css';
+@import 'photoswipe/dist/photoswipe.css';
 
 /* App Styles */
 @import url(./vars.css);
