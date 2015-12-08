@@ -98,5 +98,8 @@ function _formatForm(obj) {
 }
 
 function _endPoint(type) {
+  if (type.indexOf('http') > -1)
+    return type
+  
   return `${window.location.protocol}//${API_ENDPOINT}/${type}`
 }
