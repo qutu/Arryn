@@ -1,5 +1,5 @@
 <template>
   <div class="scenic scenic-container">
-    <router-view></router-view>
+    <router-view keep-alive></router-view>
   </div>
 </template>

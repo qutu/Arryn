@@ -3,6 +3,7 @@
 // Global deps
 import 'script!es6-promise-polyfill'
 import 'script!whatwg-fetch'
+import 'script!photoswipe'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
