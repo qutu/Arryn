@@ -103,12 +103,10 @@
 
 .scenic-photo-thumbnail {
   width: 33%;
-  height: 50px;
   overflow: hidden;
   position: relative;
   float: left;
   margin-bottom: 10px;
-  background-color: #f5f5f5;
 }
 
 .scenic-photo-thumbnail img {

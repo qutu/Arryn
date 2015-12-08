@@ -98,5 +98,5 @@ function _formatForm(obj) {
 }
 
 function _endPoint(type) {
-  return `${window.location.protocol}//${API_ENDPOINT}/${type}?format=json`
+  return `${window.location.protocol}//${API_ENDPOINT}/${type}`
 }

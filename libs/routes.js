@@ -1,7 +1,7 @@
 import scenic from '../components/scenic.vue'
 import scenicHome from '../components/scenic/home.vue'
 import scenicSpots from '../components/scenic/spots.vue'
-import scenicSpotsShopping from '../components/scenic/shopping.vue'
+import scenicSpotsFacility from '../components/scenic/facility.vue'
 
 import spot from '../components/spot.vue'
 import spotHome from '../components/spot/home.vue'
@@ -17,8 +17,8 @@ export default {
       '/': {
         component: scenicHome
       },
-      '/shopping': {
-        component: scenicSpotsShopping
+      '/facility': {
+        component: scenicSpotsFacility
       },
       '/photos': {
         component: photos

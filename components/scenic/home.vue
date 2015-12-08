@@ -2,16 +2,16 @@
   <header class="scenic-header clearfix" 
     v-bind:style="{ 'background-image': cover }">
     <h1 class="scenic-title">{{ scenic.name }} <span class="level">{{ scenic.level }}A</span></h1>
-    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button">Map</a>
+    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button">地图</a>
   </header>
   <nav class="scenic-nav">
     <ul class="clearfix">
       <li class="spot-item"><a v-link="{ path: $route.path + '/spots' }">景点</a></li>
-      <li class="shopping-item"><a v-link="{ path: $route.path + '/shopping' }">设施</a></li>
+      <li class="facility-item"><a v-link="{ path: $route.path + '/facility' }">设施</a></li>
       <li class="tour-item"><a v-link="{ path: $route.path + '/tour' }">导览</a></li>
     </ul>
   </nav>
-  <div id="scenic-sp" class="scenic-sp sp">AD</div>
+  <ad></ad>
   <section class="scenic-section">
     <h3 class="scenic-title">位置</h3>
     <p class="desc">{{ scenic.address }}</p>
@@ -28,10 +28,10 @@
     <p class="desc">{{ scenic.traffic }}</p>
   </section>
   <section class="scenic-section" 
-    v-if="scenic.photos">
+    v-if="photos.length">
     <h3 class="scenic-title" @click="goto()">相册</h3>
     <div class="photos clearfix">
-      <div class="scenic-photo-thumbnail" v-for="photo in scenic.photos">
+      <div class="scenic-photo-thumbnail" v-for="photo in photos">
         <img v-bind:src="photo" alt="">
       </div>
     </div>
@@ -40,15 +40,22 @@
 
 <script>
   import { Get } from '../../libs/api'
+  import ad from '../ad.vue'
 
   export default {
+    components: {
+      ad
+    },
+
     data() {
       return {
         err: null,
         scenic: {},
         cover: null,
+        photos: []
       }
     },
+
     created() {
       Get(`scenics/${this.$route.params.id}`)
         .then(result => {
@@ -57,15 +64,13 @@
           if (result.main_img_url)
             this.cover = `url(${result.main_img_url})`
 
-          // Just for test
-          this.scenic.photos = [
-            'http://ww2.sinaimg.cn/bmiddle/6b41b574jw1eymy6nwphjj20cz07mglt.jpg',
-            'http://ww2.sinaimg.cn/bmiddle/6b41b574jw1eymy6nwphjj20cz07mglt.jpg',
-            'http://ww1.sinaimg.cn/bmiddle/66e8f898gw1eykbsedtgrj21hc0zkwp4.jpg'
-          ]
+          if (result.photos)
+            this.photos = result.photos.split(';')
         })
-        .catch(err => this.err = err)
+        .catch(err => 
+          this.err = err)
     },
+
     methods: {
       goto() {
         this.$route.router.go(`/scenics/${this.$route.params.id}/photos`)

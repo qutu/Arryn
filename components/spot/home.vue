@@ -2,10 +2,10 @@
   <header class="scenic-header clearfix" 
     v-bind:style="{ 'background-image': cover }">
     <h1 class="scenic-title">{{ spot.name }}</h1>
-    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button">Map</a>
-    <a v-link="{ path: '../spots' }" class="back">&lt; Back</a>
+    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button">地图</a>
+    <a v-link="{ path: '../spots' }" class="back">&lt; 返回</a>
   </header>
-  <div id="spot-sp" class="spot-sp sp">AD</div>
+  <ad></ad>
   <section class="scenic-section">
     <span class="play-audio">语音解说</span>
     <audio v-bind:src="spot.voice_url" controls></audio>
@@ -18,21 +18,24 @@
     v-if="photos" @click="goto()">
     <h3 class="scenic-title">相册</h3>
     <div class="photos clearfix">
-      <div class="scenic-photo-thumbnail" v-for="photo in photos">
-        <img v-bind:src="photo" alt="">
+      <div class="scenic-photo-thumbnail" 
+        v-for="photo in photos">
+        <img v-bind:src="photo.src" alt="">
       </div>
     </div>
   </section>
-  <section class="scenic-section" v-if="nearby">
+  <section class="scenic-section" v-if="nearby.length">
     <h3 class="scenic-title">附近</h3>
     <div class="nearby clearfix">
       <div class="nearby-tab">
-        <a href="#" class="nearby-tab-spot">景点</a>
-        <a href="#" class="nearby-tab-shopping">设施</a>
+        <a @click="changeTab('spot')" class="current nearby-tab-spot">景点</a>
+        <a @click="changeTab('facility')" class="nearby-tab-facility">设施</a>
       </div>
       <div class="nearby-list">
         <div class="spots cleafix">
-          <div class="spot" v-for="spot in nearby" @click="goto(spot.id)">
+          <div class="spot" 
+            v-for="spot in nearby" 
+            @click="goto(spot.id)">
             <div class="spot-thumbnail">
               <img v-bind:src="spot.main_img_url" alt="">
             </div>
@@ -49,42 +52,60 @@
 
 <script>
   import { Get } from '../../libs/api'
+  import ad from '../ad.vue'
 
   export default {
+    components: {
+      ad
+    },
+    filters: {
+      limit(value) {
+        if (!value)
+          return ''
+        
+        return value.substr(0, 50) + '...'
+      }
+    },
     data() {
       return {
         err: null,
         spot: {},
         cover: null,
-        nearby: null,
-        photos: [
-          'http://ww2.sinaimg.cn/bmiddle/6b41b574jw1eymy6nwphjj20cz07mglt.jpg',
-          'http://ww2.sinaimg.cn/bmiddle/6b41b574jw1eymy6nwphjj20cz07mglt.jpg',
-          'http://ww2.sinaimg.cn/bmiddle/6b41b574jw1eymy6nwphjj20cz07mglt.jpg',
-        ],
+        nearby: [],
+        photos: []
       }
     },
     created() {
       Get(`scenics/${this.$route.params.id}/spots/${this.$route.params.spotId}`)
+        // Fetch spot details
         .then(result => {
           this.spot = result
 
           if (result.main_img_url)
             this.cover = `url(${result.main_img_url})`
-          if (result.photos)
-            this.photos = result.photos.split(';')
 
-          // Fetch nearby spots
+          return Get(`spots/${this.$route.params.spotId}/photos`)
+        })
+        // fetch photos
+        .then(photos => {
+          this.photos = photos 
           return Get(`spots/${this.spot.id}/nearby`)
         })
+        // Fetch nearby spots
         .then(nearby => this.nearby = nearby)
         .catch(err => this.err = err)
     },
     methods: {
       goto(spotId) {
-        this.$route.router.go(
+        const uri = spotId ? 
+          `/scenics/${this.$route.params.id}/spots/${spotId}`:
           `/scenics/${this.$route.params.id}/spots/${this.$route.params.spotId}/photos`
-        )
+
+        return this.$route.router.go(uri)
+      },
+      // Change the source of nearby spots
+      changeTab() {
+
       }
     }
   }

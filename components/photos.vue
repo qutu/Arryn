@@ -4,8 +4,8 @@
   </header>
   <section class="scenic-section photos-section">
     <div class="photos clearfix">
-      <div class="scenic-photo-thumbnail" v-for="photo in scenic.photos">
-        <img v-bind:src="photo" alt="">
+      <div class="scenic-photo-thumbnail" v-for="photo in photos">
+        <img v-bind:src="photo.src" alt="">
       </div>
     </div>
   </section>
@@ -13,29 +13,33 @@
 
 <script>
   import { Get } from '../libs/api'
-  import { testPhotos } from '../libs/consts'
 
   export default {
     data() {
       return {
         err: null,
         name: '返回',
-        scenic: {
-          photos: testPhotos
-        }
+        photos: []
       }
     },
     created() {
-      Get(`scenics/${this.$route.params.id}`)
-        .then(result => {
-          if (result.photos)
-            this.scenic.photos = result.photos
-          if (this.$route.params.spotId)
-            return Get(`scenics/${this.$route.params.id}/spots/${this.$route.params.spotId}`)
+      const spotId = this.$route.params.spotId
+      const uri = !spotId ? 
+        `scenics/${this.$route.params.id}` : 
+        `scenics/${this.$route.params.id}/spots/${spotId}`;
 
+      Get(uri)
+        .then(result => {
           this.name = result.name
+
+          // if this page is `/spot/photos`
+          if (!!spotId)
+            return Get(`spots/${spotId}/photos`)
+
+          if (result.photos)
+            this.photos = result.photos
         })
-        .then(spot => this.name = spot.name)
+        .then(photos => this.photos = photos)
         .catch(err => this.err = err)
     },
     methods: {

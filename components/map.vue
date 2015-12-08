@@ -1,6 +1,7 @@
 <template>
   <header class="sub-header">
-    <a v-link="{ path: goBack() }" class="back">返回</a>
+    <a v-link="{ path: goBack() }" 
+      class="back">返回</a>
   </header>
   <section id="map-section" 
     class="map-section">
@@ -30,7 +31,7 @@
 
       // fake 
       // 百度地图API功能
-      var map = new BMap.Map("map-section");
+      var map = new BMap.Map('map-section');
       var point = new BMap.Point(116.404, 39.915);
       map.centerAndZoom(point, 15);
       
