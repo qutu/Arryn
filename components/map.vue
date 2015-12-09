@@ -35,12 +35,14 @@
           const $map = this.$map = new BMap.Map('map-section')
           const $centerPoint = new BMap.Point(map.y_coordinate, map.x_coordinate)
           const $centerMarker = new BMap.Marker($centerPoint)
+          const geolocationControl = new BMap.GeolocationControl()
 
           // Zoom to 15
           $map.centerAndZoom($centerPoint, 18)
-  
+
           // Add a center point
           $map.addOverlay($centerMarker)
+          $map.addControl(geolocationControl)
 
           // Search all spots x,y
           if (!spotId)
