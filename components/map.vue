@@ -38,12 +38,11 @@
           const geolocationControl = new BMap.GeolocationControl()
 
           // Zoom to 15
-          $map.centerAndZoom($centerPoint, 18)
+          $map.centerAndZoom($centerPoint, 20)
 
           // Add a center point
           $map.addOverlay($centerMarker)
           $map.addControl(geolocationControl)
-          $centerMarker.setAnimation(window.BMAP_ANIMATION_BOUNCE)
 
           // Search all spots x,y
           if (!spotId)
@@ -72,7 +71,7 @@
           let x = spot.location ? spot.location[1] : spot.x_coordinate
           let point = new BMap.Point(y, x)
           let marker = new BMap.Marker(point)
-          var label = new BMap.Label(spot.name || 'name', {
+          var label = new BMap.Label(spot.name || '', {
             position: point,
             offset: new BMap.Size(8, -28) // 设置文本偏移量
           })
