@@ -22,11 +22,12 @@ Vue.use(VueRouter)
 // register filters globally
 Vue.filter('limit', limit)
 
-const router = new VueRouter({
-  hashbang: false,
-  history: true,
-  root: '/wx'
-})
+// {
+//   hashbang: false,
+//   history: true,
+//   root: '/wx'
+// }
+const router = new VueRouter()
 
 router.map(routes)
 router.beforeEach(() => window.scrollTo(0, 0))
