@@ -71,7 +71,7 @@
           let x = spot.location ? spot.location[1] : spot.x_coordinate
           let point = new BMap.Point(y, x)
           let marker = new BMap.Marker(point)
-          var label = new BMap.Label(spot.name || '', {
+          var label = new BMap.Label(spot.name || spot.title || '', {
             position: point,
             offset: new BMap.Size(8, -28) // 设置文本偏移量
           })
