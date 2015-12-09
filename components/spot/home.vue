@@ -2,8 +2,14 @@
   <header class="scenic-header clearfix" 
     v-bind:style="{ 'background-image': cover }">
     <h1 class="scenic-title">{{ spot.name }}</h1>
-    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button"><i class="material-icons">place</i></a>
-    <a v-link="{ path: '/scenics/' + $route.params.id + '/spots' }" class="back"><i class="material-icons">chevron_left</i></a>
+    <a v-link="{ path: $route.path + '/map' }" 
+      class="scenic-map-button">
+      <i class="material-icons">place</i>
+    </a>
+    <a v-link="{ path: '/scenics/' + $route.params.id + '/spots' }" 
+      class="back">
+      <i class="material-icons">chevron_left</i>
+    </a>
   </header>
   <ad></ad>
   <section class="scenic-section">
@@ -87,7 +93,8 @@
           // Fetch nearby spots
           .then(nearby => this.nearby = nearby)
           .catch(err => this.err = err)
-      }
+      },
+      canReuse: false
     },
     methods: {
       goto(spotId) {

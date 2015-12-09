@@ -1,5 +1,5 @@
 <template>
-  <header class="sub-header">
+  <header class="sub-header map-header">
     <a v-link="{ path: goBack() }" 
       class="back"><i class="material-icons">chevron_left</i></a>
   </header>
@@ -9,7 +9,9 @@
 </template>
 
 <script>
+  import fetchJsonp from 'fetch-jsonp'
   import { Get } from '../libs/api'
+  import { ak } from '../libs/consts'
 
   export default {
     data() {
@@ -18,7 +20,7 @@
         map: {}
       }
     },
-    created() {
+    data() {
       const BMap = window.BMap
       const spotId = this.$route.params.spotId
       const uri = !!spotId ? 
@@ -40,38 +42,38 @@
 
           // Search all spots x,y
           if (!spotId)
-            return Get(`scenics/${this.$route.params.id}/spots`) 
+            return Get(`scenics/${this.$route.params.id}/spots`)
 
-          // var options = {
-          //   renderOptions: {
-          //     map: $map
-          //   },
-          //   onSearchComplete: results => {
-          //     console.log('Search Completed')
-          //     console.log(results)
-          //   }
-          // }
+          // Search the nearby spots
+          fetchJsonp(`http://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${map.geotable_id}&location=${map.y_coordinate},${map.x_coordinate}&radius=${map.baidu_radius}&ak=${ak}&callback=jsonp`)
+            .then(res => res.json())
+            .then(json => {
+              if (json.status !== 0)
+                throw new Error('Map error')
+              
+              this.addToMap(json.contents)
+            })
+            .catch(err => {
 
-          // var localSearch = new BMap.LocalSearch($map, options)
-
-          // // Search nearby spots on Baidu Map
-          // localSearch.searchNearby(map.name, $centerPoint, map.baidu_radius, {
-          //   customData: {
-          //     geotableId: map.geotable_id
-          //   }
-          // })
+            })
         })
-        .then(spots => {
-          spots.forEach(spot => {
-            var point = new BMap.Point(spot.y_coordinate, spot.x_coordinate)
-            var marker = new BMap.Marker(point)
-            marker.addEventListener('click', () => this.$route.router.go(`/scenics/${this.$route.params.id}/spots/${spot.id}`))
-            this.$map.addOverlay(marker)
-          })
-        })
+        .then(spots => this.addToMap(spots))
         .catch(err => this.err = err)
     },
     methods: {
+      addToMap(spots) {
+        spots.forEach(spot => {
+          let y = spot.location ? spot.location[0] : spot.y_coordinate
+          let x = spot.location ? spot.location[1] : spot.x_coordinate
+          let point = new BMap.Point(y, x)
+          let marker = new BMap.Marker(point)
+
+          marker.addEventListener('click', () => 
+            this.$route.router.go(spot.spot_url || `/scenics/${this.$route.params.id}/spots/${spot.id}`))
+
+          this.$map.addOverlay(marker)
+        })
+      },
       goBack() {
         const spotId = this.$route.params.spotId
         return spotId ? 

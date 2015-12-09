@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "es6-promise-polyfill": "^1.1.1",
+    "fetch-jsonp": "^1.0.0",
     "material-design-icons": "^2.1.1",
     "normalize.css": "^3.0.3",
     "photoswipe": "^4.1.0",

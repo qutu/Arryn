@@ -22,11 +22,11 @@ Vue.use(VueRouter)
 // register filters globally
 Vue.filter('limit', limit)
 
-// {
-//   hashbang: false,
-//   history: true,
-//   root: '/wx'
-// }
+const routeConfigs = {
+  hashbang: false,
+  history: true,
+  root: '/wx'
+}
 const router = new VueRouter()
 
 router.map(routes)
