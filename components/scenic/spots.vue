@@ -1,6 +1,6 @@
 <template>
   <header class="sub-header">
-    <a v-link="{ path: '../' + $route.params.id }" class="back"><i class="material-icons">chevron_left</i> {{ name }}</a>
+    <a v-link="{ path: '/scenics/' + $route.params.id }" class="back"><i class="material-icons">chevron_left</i> {{ name }}</a>
   </header>
   <div class="spots cleafix">
     <div class="spot" v-for="spot in spots" @click="goto(spot.id)">
