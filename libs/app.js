@@ -27,7 +27,7 @@ const routeConfigs = {
   history: true,
   root: '/wx'
 }
-const router = new VueRouter()
+const router = new VueRouter(routeConfigs)
 
 router.map(routes)
 router.beforeEach(() => window.scrollTo(0, 0))
