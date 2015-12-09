@@ -43,6 +43,7 @@
           // Add a center point
           $map.addOverlay($centerMarker)
           $map.addControl(geolocationControl)
+          $centerMarker.setAnimation(window.BMAP_ANIMATION_BOUNCE)
 
           // Search all spots x,y
           if (!spotId)
@@ -71,6 +72,22 @@
           let x = spot.location ? spot.location[1] : spot.x_coordinate
           let point = new BMap.Point(y, x)
           let marker = new BMap.Marker(point)
+          var label = new BMap.Label(spot.name || 'name', {
+            position: point,
+            offset: new BMap.Size(8, -28) // 设置文本偏移量
+          })
+
+          label.setStyle({
+            color : "#fff",
+            fontSize : "12px",
+            height : "20px",
+            lineHeight : "20px",
+            borderColor: '#999',
+            borderRadius: '10px',
+            padding: '3px 8px',
+            backgroundColor: '#000',
+            opacity: '.8'
+          })
 
           marker.addEventListener('click', () => {
             if (spot.spot_url) {
@@ -82,6 +99,7 @@
           })
 
           this.$map.addOverlay(marker)
+          this.$map.addOverlay(label)
         })
       },
       goBack() {
