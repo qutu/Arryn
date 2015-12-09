@@ -58,14 +58,6 @@
     components: {
       ad
     },
-    filters: {
-      limit(value) {
-        if (!value)
-          return ''
-        
-        return value.substr(0, 50) + '...'
-      }
-    },
     data() {
       return {
         err: null,

@@ -19,11 +19,6 @@
   import { Get } from '../../libs/api'
 
   export default {
-    filters: {
-      limit(value) {
-        return value.substr(0, 50) + '...'
-      }
-    },
     data() {
       return {
         name: '返回',
