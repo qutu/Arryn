@@ -1,7 +1,9 @@
 <template>
   <header class="sub-header map-header">
     <a v-link="{ path: goBack() }" 
-      class="back"><i class="material-icons">chevron_left</i></a>
+      class="back">
+      <i class="material-icons">chevron_left</i>
+    </a>
   </header>
   <section id="map-section" 
     class="map-section">
@@ -68,8 +70,14 @@
           let point = new BMap.Point(y, x)
           let marker = new BMap.Marker(point)
 
-          marker.addEventListener('click', () => 
-            this.$route.router.go(spot.spot_url || `/scenics/${this.$route.params.id}/spots/${spot.id}`))
+          marker.addEventListener('click', () => {
+            if (spot.spot_url) {
+              window.location.href = spot.spot_url
+              return
+            }
+
+            this.$route.router.go(`/scenics/${this.$route.params.id}/spots/${spot.id}`)
+          })
 
           this.$map.addOverlay(marker)
         })
