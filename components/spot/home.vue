@@ -18,7 +18,9 @@
   </section>
   <section class="scenic-section">
     <h3 class="scenic-title">简介</h3>
-    <p class="desc">{{ spot.text_intro }}</p>
+    <p class="desc">{{ spot.text_intro }}
+      <a @click="expand" class="read-more"
+        v-if="showExpand(spot.text_intro)">展开全文</a></p>
   </section>
   <section class="scenic-section" 
     v-if="photos" @click="goto()">
@@ -83,20 +85,28 @@
             if (result.main_img_url)
               this.cover = `url(${result.main_img_url})`
 
-            return Get(`spots/${this.$route.params.spotId}/photos`)
-          })
-          // fetch photos
-          .then(photos => {
-            this.photos = photos 
             return Get(`spots/${this.spot.id}/nearby`)
           })
+          // fetch photos
+          .then(nearby => {
+            this.nearby = nearby 
+            return Get(`spots/${this.$route.params.spotId}/photos`)
+          })
           // Fetch nearby spots
-          .then(nearby => this.nearby = nearby)
+          .then(photos => this.photos = photos)
           .catch(err => this.err = err)
       },
       canReuse: false
     },
     methods: {
+      showExpand(s) {
+        return s && s.length > 100
+      },
+      expand(e) {
+        const desc = e.target.parentElement
+        desc.style.maxHeight = '200px'
+        e.target.style.display = 'none'
+      },
       goto(spotId) {
         return this.$route.router.go({
           name: spotId ? 'spot' : 'spot-photos',

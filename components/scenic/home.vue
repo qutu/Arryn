@@ -21,11 +21,19 @@
     <h4>开放时间</h4>
     <p class="desc">{{ scenic.open_time_desc }}</p>
     <h4>景点介绍</h4>
-    <p class="desc">{{ scenic.text_intro }}</p>
+    <p class="desc">
+      {{ scenic.text_intro }}
+      <a @click="expand" class="read-more"
+        v-if="showExpand(scenic.text_intro)">展开全文</a>
+    </p>
   </section>
   <section class="scenic-section">
     <h3 class="scenic-title">交通</h3>
-    <p class="desc">{{ scenic.traffic }}</p>
+    <p class="desc">
+      {{ scenic.traffic }}
+      <a @click="expand" class="read-more"
+        v-if="showExpand(scenic.traffic)">展开全文</a>
+    </p>
   </section>
   <section class="scenic-section" 
     v-if="photos.length">
@@ -72,6 +80,14 @@
     },
 
     methods: {
+      showExpand(s) {
+        return s && s.length > 100
+      },
+      expand(e) {
+        const desc = e.target.parentElement
+        desc.style.maxHeight = '200px'
+        e.target.style.display = 'none'
+      },
       goto() {
         this.$route.router.go(`/scenics/${this.$route.params.id}/photos`)
       }
