@@ -22,63 +22,65 @@
         map: {}
       }
     },
-    data() {
-      const self = this
-      const BMap = window.BMap
-      const spotId = this.$route.params.spotId
-      const uri = !!spotId ? 
-        `scenics/${this.$route.params.id}/spots/${spotId}` :
-        `scenics/${this.$route.params.id}`; 
+    route: {
+      data() {
+        const self = this
+        const BMap = window.BMap
+        const spotId = this.$route.params.spotId
+        const uri = !!spotId ? 
+          `scenics/${this.$route.params.id}/spots/${spotId}` :
+          `scenics/${this.$route.params.id}`; 
 
-      Get(uri)
-        .then(mapinfo => {
-          const map = this.map = mapinfo
-          const geotable_id = map.geotable_id
-          const $map = this.$map = new BMap.Map('map-section')
-          const $centerPoint = new BMap.Point(map.y_coordinate, map.x_coordinate)
-          const $centerMarker = new BMap.Marker($centerPoint)
-          const geolocationControl = new BMap.GeolocationControl()
+        Get(uri)
+          .then(mapinfo => {
+            const map = this.map = mapinfo
+            const geotable_id = map.geotable_id
+            const $map = this.$map = new BMap.Map('map-section')
+            const $centerPoint = new BMap.Point(map.y_coordinate, map.x_coordinate)
+            const $centerMarker = new BMap.Marker($centerPoint)
+            const geolocationControl = new BMap.GeolocationControl()
 
-          // Zoom to 15
-          $map.centerAndZoom($centerPoint, 20)
+            // Zoom to 15
+            $map.centerAndZoom($centerPoint, 20)
 
-          // Add a center point
-          $map.addOverlay($centerMarker)
-          $map.addControl(geolocationControl)
+            // Add a center point
+            $map.addOverlay($centerMarker)
+            $map.addControl(geolocationControl)
 
-          // Search all spots x,y
-          if (!spotId)
-            return Get(`scenics/${this.$route.params.id}/spots`)
+            // Search all spots x,y
+            if (!spotId)
+              return Get(`scenics/${this.$route.params.id}/spots`)
 
-          $map.addEventListener('zoomend', reloadNearbtSpots)
-          $map.addEventListener('tilesloaded', reloadNearbtSpots)
+            $map.addEventListener('zoomend', reloadNearbtSpots)
+            $map.addEventListener('tilesloaded', reloadNearbtSpots)
 
-          reloadNearbtSpots('start')
+            reloadNearbtSpots('start')
 
-          // Search the nearby spots
-          function reloadNearbtSpots(type) {
-            const bs = $map.getBounds()
-            const leftBottomPoi = bs.getSouthWest()
-            const rightTopPoi = bs.getNorthEast()
-            const endpoint = type === 'start' ?
-              `http://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${map.y_coordinate},${map.x_coordinate}&radius=${map.baidu_radius}&ak=${ak}&callback=jsonp` :
-              `http://api.map.baidu.com/geosearch/v3/bound?ak=${ak}&geotable_id=${geotable_id}&bounds=${leftBottomPoi.lng},${leftBottomPoi.lat};${rightTopPoi.lng},${rightTopPoi.lat}`;
+            // Search the nearby spots
+            function reloadNearbtSpots(type) {
+              const bs = $map.getBounds()
+              const leftBottomPoi = bs.getSouthWest()
+              const rightTopPoi = bs.getNorthEast()
+              const endpoint = type === 'start' ?
+                `http://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${map.y_coordinate},${map.x_coordinate}&radius=${map.baidu_radius}&ak=${ak}&callback=jsonp` :
+                `http://api.map.baidu.com/geosearch/v3/bound?ak=${ak}&geotable_id=${geotable_id}&bounds=${leftBottomPoi.lng},${leftBottomPoi.lat};${rightTopPoi.lng},${rightTopPoi.lat}`;
 
-            fetchJsonp(endpoint)
-              .then(res => res.json())
-              .then(json => {
-                if (json.status !== 0)
-                  throw new Error('Map error')
-                
-                self.addToMap(json.contents)
-              })
-              .catch(err => {
-                // ignore error
-              })
-          }
-        })
-        .then(spots => this.addToMap(spots))
-        .catch(err => this.err = err)
+              fetchJsonp(endpoint)
+                .then(res => res.json())
+                .then(json => {
+                  if (json.status !== 0)
+                    throw new Error('Map error')
+                  
+                  self.addToMap(json.contents)
+                })
+                .catch(err => {
+                  // ignore error
+                })
+            }
+          })
+          .then(spots => this.addToMap(spots))
+          .catch(err => this.err = err)
+      }
     },
     methods: {
       jumpToSpot(spot) {
