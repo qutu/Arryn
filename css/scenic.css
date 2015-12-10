@@ -120,7 +120,7 @@
 }
 
 .map-section {
-  position: fixed !important;
+  position: absolute !important;
   top: 0px;
   left: 0px;
   height: 100%;
