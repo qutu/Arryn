@@ -12,10 +12,13 @@
         <p class="spot-desc">{{ spot.text_intro | limit }}</p>
       </div>
     </div>
+    <span id="load-more" v-if="spots.length"
+      class="load-more">.</span>
   </div>
 </template>
 
 <script>
+  import scrollMonitor from 'scrollmonitor'
   import { Get } from '../../libs/api'
 
   export default {
@@ -27,8 +30,33 @@
       }
     },
     created() {
-      Get(`scenics/${this.$route.params.id}/spots`)
-        .then(result => this.spots = result)
+      Get(`scenics/${this.$route.params.id}/spots`, {
+          s: 10
+        })
+        .then(result => {
+          this.spots = result
+          this.page = 1
+
+          setTimeout(() => {
+            const $loadMore = document.getElementById('load-more')
+            const loaderWatcher = scrollMonitor.create($loadMore)  
+
+            loaderWatcher.enterViewport(() => {
+              Get(`scenics/${this.$route.params.id}/spots`, {
+                s: 10,
+                headers: {
+                  'X-Page': this.page + 1
+                }
+              })
+              .then(result => {
+                this.spots = this.spots.concat(result)
+                this.page ++
+              })
+              .catch(err => {})
+            })
+          }, 10)
+          
+        })
         .catch(err => this.err = err)
       Get(`scenics/${this.$route.params.id}`)
         .then(result => this.name = result.name)

@@ -93,7 +93,7 @@ function _formatForm(obj) {
     return obj.map(item => `id=${item}`).join('&')
 
   return Object.keys(obj)
-    .map(key => `${key}=${obj[key]}`)
+    .map(key => key === 'headers' ? '' : `${key}=${obj[key]}`)
     .join('&')
 }
 
