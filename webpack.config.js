@@ -29,7 +29,7 @@ module.exports = {
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader?minimize!cssnext-loader')
     },
     { test: /\.jpg$/, loader: "file-loader" },
-    { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }]
+    { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=1000' }]
   },
   devServer: {
     contentBase: './dist'
