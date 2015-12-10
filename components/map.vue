@@ -32,8 +32,8 @@
           `scenics/${this.$route.params.id}`; 
 
         Get(uri)
-          .then(mapinfo => {
-            const map = this.map = mapinfo
+          .then(({result}) => {
+            const map = this.map = result
             const geotable_id = map.geotable_id
             const $map = this.$map = new BMap.Map('map-section')
             const $centerPoint = new BMap.Point(map.y_coordinate, map.x_coordinate)
@@ -78,7 +78,7 @@
                 })
             }
           })
-          .then(spots => this.addToMap(spots))
+          .then(({result}) => this.addToMap(result))
           .catch(err => this.err = err)
       }
     },

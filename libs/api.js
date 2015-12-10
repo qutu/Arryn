@@ -36,14 +36,20 @@ function fetchData(type, data, getMode) {
   }
 
   function parseJSON(res) {
-    return res.json()
+    return Promise.all([
+      res.json(),
+      res.headers.get('X-Total')
+    ])
   }
 
   function success(result) {
-    if (result.errcode)
-      throw new Error(result.errmsg)
+    if (result[0].errcode)
+      throw new Error(result[0].errmsg)
 
-    return Promise.resolve(result)
+    return Promise.resolve({
+      result: result[0],
+      total: result[1]
+    })
   }
 
   function errorHandle(err) {

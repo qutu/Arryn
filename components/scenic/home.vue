@@ -66,7 +66,7 @@
 
     created() {
       Get(`scenics/${this.$route.params.id}`)
-        .then(result => {
+        .then(({result}) => {
           this.scenic = result
 
           if (result.main_img_url)

@@ -57,6 +57,14 @@ body a {
   line-height: 50px;
 }
 
+.load-more {
+  display: block;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  padding: 20px 0px;
+}
+
 /**
  * For modern browsers
  * 1. The space content is one way to avoid an Opera bug when the

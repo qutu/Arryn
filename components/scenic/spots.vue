@@ -1,9 +1,12 @@
 <template>
   <header class="sub-header">
-    <a v-link="{ path: '/scenics/' + $route.params.id }" class="back"><i class="material-icons">chevron_left</i> {{ name }}</a>
+    <a v-link="{ path: '/scenics/' + $route.params.id }" class="back">
+      <i class="material-icons">chevron_left</i> {{ name }}
+    </a>
   </header>
   <div class="spots cleafix">
-    <div class="spot" v-for="spot in spots" @click="goto(spot.id)">
+    <div class="spot" v-for="spot in spots" 
+      @click="goto(spot.id)">
       <div class="spot-thumbnail">
         <img v-bind:src="spot.main_img_url" alt="">
       </div>
@@ -12,8 +15,9 @@
         <p class="spot-desc">{{ spot.text_intro | limit }}</p>
       </div>
     </div>
-    <span id="load-more" v-if="spots.length"
-      class="load-more">.</span>
+    <span id="load-more" 
+      v-if="spots.length"
+      class="load-more">{{ nomore ? '没有更多了': '加载中...'}}</span>
   </div>
 </template>
 
@@ -27,12 +31,15 @@
         name: '返回',
         err: null,
         spots: [],
+        nomore: false
       }
     },
     created() {
-      Get(`scenics/${this.$route.params.id}/spots`, { s: 5 })
-        .then(result => {
+      // Fetch the spots details
+      Get(`scenics/${this.$route.params.id}/spots`, { s: 10 })
+        .then(({total, result}) => {
           this.spots = result
+          this.total = total
           this.page = 1
 
           setTimeout(() => {
@@ -43,21 +50,31 @@
               const customHeaders = new window.Headers()
               customHeaders.append('x-page', this.page + 1)
 
-              Get(`scenics/${this.$route.params.id}/spots`, {
-                s: 5,
+              if (this.page >= this.total) {
+                this.nomore = true
+                return
+              }
+
+              const query = {
+                s: 10,
                 p: this.page + 1
-              }).then(result => {
-                this.spots = this.spots.concat(result)
-                this.page ++
-              })
-              .catch(err => {})
+              }
+
+              Get(`scenics/${this.$route.params.id}/spots`, query)
+                .then(({result}) => {
+                  this.spots = this.spots.concat(result)
+                  this.page ++
+                })
+                .catch(err => {})
             })
-          }, 10)
+          }, 500)
 
         })
         .catch(err => this.err = err)
+
+      // Fetch the scenices name
       Get(`scenics/${this.$route.params.id}`)
-        .then(result => this.name = result.name)
+        .then(({result}) => this.name = result.name)
         .catch(err => this.err = err)
     },
     methods: {

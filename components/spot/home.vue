@@ -79,7 +79,7 @@
       data() {
         Get(`scenics/${this.$route.params.id}/spots/${this.$route.params.spotId}`)
           // Fetch spot details
-          .then(result => {
+          .then(({result}) => {
             this.spot = result
 
             if (result.main_img_url)
@@ -88,12 +88,12 @@
             return Get(`spots/${this.spot.id}/nearby`)
           })
           // fetch photos
-          .then(nearby => {
-            this.nearby = nearby 
+          .then(({result}) => {
+            this.nearby = result 
             return Get(`spots/${this.$route.params.spotId}/photos`)
           })
           // Fetch nearby spots
-          .then(photos => this.photos = photos)
+          .then(({result}) => this.photos = result)
           .catch(err => this.err = err)
       },
       canReuse: false

@@ -39,7 +39,7 @@
         `scenics/${this.$route.params.id}/spots/${spotId}`;
 
       Get(uri)
-        .then(result => {
+        .then(({result}) => {
           this.name = result.name
 
           // if this page is `/spot/photos`
@@ -48,7 +48,7 @@
 
           this.photos = result.photos
         })
-        .then(photos => this.photos = photos)
+        .then(({result}) => this.photos = result)
         .catch(err => this.err = err)
     },
     methods: {

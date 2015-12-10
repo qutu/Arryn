@@ -28,10 +28,10 @@
     },
     created() {
       Get(`scenics/${this.$route.params.id}/spots`)
-        .then(result => this.spots = result.filter(item => spot_type !== 1))
+        .then(({result}) => this.spots = result.filter(item => spot_type !== 1))
         .catch(err => this.err = err)
       Get(`scenics/${this.$route.params.id}`)
-        .then(result => this.name = result.name)
+        .then(({result}) => this.name = result.name)
         .catch(err => this.err = err)
     },
     methods: {
