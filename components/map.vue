@@ -23,6 +23,7 @@
       }
     },
     data() {
+      const self = this
       const BMap = window.BMap
       const spotId = this.$route.params.spotId
       const uri = !!spotId ? 
@@ -32,6 +33,7 @@
       Get(uri)
         .then(mapinfo => {
           const map = this.map = mapinfo
+          const geotable_id = map.geotable_id
           const $map = this.$map = new BMap.Map('map-section')
           const $centerPoint = new BMap.Point(map.y_coordinate, map.x_coordinate)
           const $centerMarker = new BMap.Marker($centerPoint)
@@ -48,24 +50,42 @@
           if (!spotId)
             return Get(`scenics/${this.$route.params.id}/spots`)
 
-          // Search the nearby spots
-          fetchJsonp(`http://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${map.geotable_id}&location=${map.y_coordinate},${map.x_coordinate}&radius=${map.baidu_radius}&ak=${ak}&callback=jsonp`)
-            .then(res => res.json())
-            .then(json => {
-              if (json.status !== 0)
-                throw new Error('Map error')
-              
-              this.addToMap(json.contents)
-            })
-            .catch(err => {
+          $map.addEventListener('zoomend', reloadNearbtSpots)
+          $map.addEventListener('tilesloaded', reloadNearbtSpots)
 
-            })
+          reloadNearbtSpots('start')
+
+          // Search the nearby spots
+          function reloadNearbtSpots(type) {
+            const bs = $map.getBounds()
+            const leftBottomPoi = bs.getSouthWest()
+            const rightTopPoi = bs.getNorthEast()
+            const endpoint = type === 'start' ?
+              `http://api.map.baidu.com/geosearch/v3/nearby?geotable_id=${geotable_id}&location=${map.y_coordinate},${map.x_coordinate}&radius=${map.baidu_radius}&ak=${ak}&callback=jsonp` :
+              `http://api.map.baidu.com/geosearch/v3/bound?ak=${ak}&geotable_id=${geotable_id}&bounds=${leftBottomPoi.lng},${leftBottomPoi.lat};${rightTopPoi.lng},${rightTopPoi.lat}`;
+
+            fetchJsonp(endpoint)
+              .then(res => res.json())
+              .then(json => {
+                if (json.status !== 0)
+                  throw new Error('Map error')
+                
+                self.addToMap(json.contents)
+              })
+              .catch(err => {
+                // ignore error
+              })
+          }
         })
         .then(spots => this.addToMap(spots))
         .catch(err => this.err = err)
     },
     methods: {
       addToMap(spots) {
+        // Clear all overlays
+        this.$map.clearOverlays()
+
+        // Add spots
         spots.forEach(spot => {
           let y = spot.location ? spot.location[0] : spot.y_coordinate
           let x = spot.location ? spot.location[1] : spot.x_coordinate
