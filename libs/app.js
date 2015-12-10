@@ -24,8 +24,7 @@ Vue.filter('limit', limit)
 
 const routeConfigs = {
   hashbang: false,
-  history: true,
-  root: '/wx'
+  history: true
 }
 const router = new VueRouter(routeConfigs)
 
