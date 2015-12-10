@@ -30,9 +30,7 @@
       }
     },
     created() {
-      Get(`scenics/${this.$route.params.id}/spots`, {
-          s: 10
-        })
+      Get(`scenics/${this.$route.params.id}/spots`, { s: 5 })
         .then(result => {
           this.spots = result
           this.page = 1
@@ -42,20 +40,20 @@
             const loaderWatcher = scrollMonitor.create($loadMore)  
 
             loaderWatcher.enterViewport(() => {
+              const customHeaders = new window.Headers()
+              customHeaders.append('x-page', this.page + 1)
+
               Get(`scenics/${this.$route.params.id}/spots`, {
-                s: 10,
-                headers: {
-                  'X-Page': this.page + 1
-                }
-              })
-              .then(result => {
+                s: 5,
+                p: this.page + 1
+              }).then(result => {
                 this.spots = this.spots.concat(result)
                 this.page ++
               })
               .catch(err => {})
             })
           }, 10)
-          
+
         })
         .catch(err => this.err = err)
       Get(`scenics/${this.$route.params.id}`)
