@@ -81,6 +81,16 @@
         .catch(err => this.err = err)
     },
     methods: {
+      jumpToSpot(spot) {
+        if (spot.spot_url) {
+          window.location.href = spot.spot_url
+          return
+        }
+
+        this.$route.router.go(
+          `/scenics/${this.$route.params.id}/spots/${spot.id}`
+        )
+      },
       addToMap(spots) {
         // Clear all overlays
         this.$map.clearOverlays()
@@ -108,14 +118,8 @@
             opacity: '.8'
           })
 
-          marker.addEventListener('click', () => {
-            if (spot.spot_url) {
-              window.location.href = spot.spot_url
-              return
-            }
-
-            this.$route.router.go(`/scenics/${this.$route.params.id}/spots/${spot.id}`)
-          })
+          label.addEventListener('click', () => this.jumpToSpot(spot))
+          marker.addEventListener('click', () => this.jumpToSpot(spot))
 
           this.$map.addOverlay(marker)
           this.$map.addOverlay(label)
