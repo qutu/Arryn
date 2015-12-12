@@ -46,7 +46,14 @@
           if (!!spotId)
             return Get(`spots/${spotId}/photos`)
 
-          this.photos = result.photos
+          // hardcode here!
+          this.photos = result.all_photos.split(';').map(uri => { 
+            return { 
+              src: uri,
+              w: 640,
+              h: 426
+            }
+          })
         })
         .then(({result}) => this.photos = result)
         .catch(err => this.err = err)

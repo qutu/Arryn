@@ -72,8 +72,8 @@
           if (result.main_img_url)
             this.cover = `url(${result.main_img_url})`
 
-          if (result.photos)
-            this.photos = result.photos.split(';')
+          if (result.all_photos)
+            this.photos = result.all_photos.split(';')
         })
         .catch(err => 
           this.err = err)
