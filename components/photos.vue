@@ -17,9 +17,9 @@
 </template>
 
 <script>
-  import { Get } from '../libs/api'
   import swipe from './swipe.vue'
-  import Photoswipe from 'photoswipe'
+  import { Get } from '../libs/api'
+  import { formatPhotos, openSwipe } from '../libs/utils'
 
   export default {
     components: {
@@ -47,13 +47,7 @@
             return Get(`spots/${spotId}/photos`)
 
           // hardcode here!
-          this.photos = result.all_photos.split(';').map(uri => { 
-            return { 
-              src: uri,
-              w: 640,
-              h: 426
-            }
-          })
+          this.photos = formatPhotos(result.all_photos)
         })
         .then(({result}) => this.photos = result)
         .catch(err => this.err = err)
@@ -66,16 +60,7 @@
           `/scenics/${this.$route.params.id}`;
       },
       openSwipe(currentPhoto) {
-        const index = currentPhoto ? this.photos.indexOf(currentPhoto) : 0
-        const gallery = new Photoswipe(document.getElementById('pswp'), window.PhotoSwipeUI_Default, this.photos, {
-          history: false,
-          focus: false,
-          loop: true,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0,
-          index,
-        })
-        gallery.init()
+        return openSwipe(currentPhoto, this.photos)
       }
     }
   }

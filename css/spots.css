@@ -1,5 +1,4 @@
 .spot {
-  display: flex;
   height: 70px;
   overflow: hidden;
   padding: 20px 10px;
@@ -7,7 +6,8 @@
 }
 
 .spot-thumbnail {
-  flex: 1;
+  width: 20%;
+  float: left;
 }
 
 .spot-thumbnail img {
@@ -16,19 +16,21 @@
 }
 
 .spot-text {
-  flex: 3;
-  padding-left: 10px;
+  float: left;
+  width: 80%;
 }
 
 .spot-name {
   font-size: 14px;
   margin: 0px;
   padding: 0px;
+  padding-left: 10px;
 }
 
 .spot-desc {
   padding-top: 0px;
   margin-top: 0px;
+  padding-left: 10px;
   font-size: 12px;
   color: #999;
   line-height: 1.8;

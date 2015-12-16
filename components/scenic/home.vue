@@ -37,24 +37,30 @@
   </section>
   <section class="scenic-section" 
     v-if="photos.length">
-    <h3 class="scenic-title" @click="goto()">相册</h3>
+    <h3 class="scenic-title" 
+      @click="goto()">相册</h3>
     <div class="photos clearfix">
-      <div class="scenic-photo-thumbnail" v-for="photo in photos">
-        <img v-bind:src="photo" alt="">
+      <div class="scenic-photo-thumbnail" 
+        @click="openSwipe(photo)"
+        v-for="photo in photos">
+        <img :src="photo.src" alt="">
       </div>
     </div>
   </section>
+  <swipe></swipe>
 </template>
 
 <script>
   import { Get } from '../../libs/api'
+  import { formatPhotos, openSwipe } from '../../libs/utils'
   import ad from '../ad.vue'
+  import swipe from '../swipe.vue'
 
   export default {
     components: {
-      ad
+      ad,
+      swipe
     },
-
     data() {
       return {
         err: null,
@@ -63,7 +69,6 @@
         photos: []
       }
     },
-
     created() {
       Get(`scenics/${this.$route.params.id}`)
         .then(({result}) => {
@@ -75,7 +80,7 @@
             this.cover = `url(${result.main_img_url})`
 
           if (result.all_photos)
-            this.photos = result.all_photos.split(';')
+            this.photos = formatPhotos(result.all_photos)
         })
         .catch(err => 
           this.err = err)
@@ -92,6 +97,9 @@
       },
       goto() {
         this.$route.router.go(`/scenics/${this.$route.params.id}/photos`)
+      },
+      openSwipe(currentPhoto) {
+        return openSwipe(currentPhoto, this.photos)
       }
     }
   }
