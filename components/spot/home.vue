@@ -81,6 +81,7 @@
           // Fetch spot details
           .then(({result}) => {
             this.spot = result
+            document.title = this.spot.name
 
             if (result.main_img_url)
               this.cover = `url(${result.main_img_url})`

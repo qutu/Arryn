@@ -69,6 +69,8 @@
         .then(({result}) => {
           this.scenic = result
 
+          document.title = this.scenic.name
+
           if (result.main_img_url)
             this.cover = `url(${result.main_img_url})`
 
