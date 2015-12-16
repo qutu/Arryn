@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve-test": "node_modules/.bin/webpack-dev-server --inline --host 0.0.0.0 --quiet > /dev/null &",
+    "test": "node_modules/.bin/webpack-dev-server --inline --host 0.0.0.0 --quiet > /dev/null",
     "dev": "node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "NODE_ENV=production node_modules/.bin/webpack"
   },

@@ -24,9 +24,10 @@ Vue.filter('limit', limit)
 
 const routeConfigs = {
   hashbang: false,
-  history: true
+  history: true,
+  saveScrollPosition: true
 }
-const router = new VueRouter(routeConfigs)
+const router = new VueRouter()
 
 router.map(routes)
 router.beforeEach(() => window.scrollTo(0, 0))

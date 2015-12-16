@@ -15,18 +15,23 @@ export default {
     component: scenic,
     subRoutes: {
       '/': {
+        name: 'scenicHome',
         component: scenicHome
       },
       '/facility': {
+        name: 'scenicFacility',
         component: scenicSpotsFacility
       },
       '/photos': {
+        name: 'photos',
         component: photos
       },
       '/map': {
+        name: 'map',
         component: map
       },
       '/tour': {
+        mame: 'tour',
         component: tour
       },
       '/spots': {
@@ -35,20 +40,22 @@ export default {
         },
         subRoutes: {
           '/': {
+            name: 'spots',
             component: scenicSpots,
           },
           '/:spotId': {
-            name: 'spot',
             component: spot,
             subRoutes: {
               '/': {
+                name: 'spot',
                 component: spotHome
               },
               '/photos': {
-                name: 'spot-photos',
+                name: 'spotPhotos',
                 component: photos
               },
               '/map': {
+                name: 'spotMap',
                 component: map
               }
             }

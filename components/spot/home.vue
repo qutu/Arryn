@@ -110,7 +110,7 @@
       },
       goto(spotId) {
         return this.$route.router.go({
-          name: spotId ? 'spot' : 'spot-photos',
+          name: spotId ? 'spot' : 'spotPhotos',
           params: {
             id: this.$route.params.id,
             spotId: spotId || this.$route.params.spotId
