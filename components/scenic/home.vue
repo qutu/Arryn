@@ -80,7 +80,7 @@
             this.cover = `url(${result.main_img_url})`
 
           if (result.all_photos)
-            this.photos = formatPhotos(result.all_photos)
+            this.photos = result.all_photos
         })
         .catch(err => 
           this.err = err)
