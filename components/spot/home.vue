@@ -32,14 +32,19 @@
       </div>
     </div>
   </section>
-  <section class="scenic-section" v-if="nearby.length">
+  <section class="scenic-section" >
     <h3 class="scenic-title">附近</h3>
     <div class="nearby clearfix">
       <div class="nearby-tab">
-        <a @click="changeTab('spot')" class="current nearby-tab-spot">景点</a>
-        <a @click="changeTab('facility')" class="nearby-tab-facility">设施</a>
+        <a @click="changeTab('spot')" class="nearby-tab-spot" 
+          href="javascript:void(0)"
+          :class="{ 'current': currentTab == 'spot'}">景点</a>
+        <a @click="changeTab('facility')" class="nearby-tab-facility"
+          href="javascript:void(0)"
+          :class="{ 'current': currentTab == 'facility'}">设施</a>
       </div>
-      <div class="nearby-list">
+      <div class="nearby-list" 
+        v-if="nearby.length">
         <div class="spots cleafix">
           <div class="spot" 
             v-for="spot in nearby" 
@@ -54,6 +59,8 @@
           </div>
         </div>
       </div>
+      <div class="nearby-404" 
+        v-if="!nearby.length">暂无数据</div>
     </div>
   </section>
 </template>
@@ -68,6 +75,7 @@
     },
     data() {
       return {
+        currentTab: 'spot',
         err: null,
         spot: {},
         cover: null,
@@ -118,8 +126,23 @@
         })
       },
       // Change the source of nearby spots
-      changeTab() {
+      changeTab(type) {
+        const queryMap = {
+          spot: 's',
+          facility: 'f'
+        }
+        const query = {
+          type: queryMap[type]
+        }
 
+        if (!query.type)
+          return
+
+        this.currentTab = type
+        
+        Get(`spots/${this.spot.id}/nearby`, query)
+          .then(({result}) => this.nearby = result)
+          .catch(err => this.err = err)
       }
     }
   }
