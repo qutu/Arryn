@@ -36,7 +36,7 @@
     },
     created() {
       // Fetch the spots details
-      Get(`scenics/${this.$route.params.id}/spots`, { s: 10 })
+      Get(`scenics/${this.$route.params.id}/spots`, { s: 10, type: 's' })
         .then(({total, result}) => {
           this.spots = result
           this.total = total
@@ -57,6 +57,7 @@
 
               const query = {
                 s: 10,
+                type: 's',
                 p: this.page + 1
               }
 

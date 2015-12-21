@@ -18,9 +18,13 @@
   </div>
   <div class="nearby-404" 
     v-if="!spots.length">暂无数据</div>
+  <span id="load-more" 
+    v-if="spots.length"
+    class="load-more">{{ nomore ? '没有更多了': '加载中...'}}</span>
 </template>
 
 <script>
+  import scrollMonitor from 'scrollmonitor'
   import { Get } from '../../libs/api'
 
   export default {
@@ -29,12 +33,42 @@
         name: '返回',
         err: null,
         spots: [],
+        nomore: false
       }
     },
     created() {
       // Fetch spots facilities
-      Get(`scenics/${this.$route.params.id}/spots`, { type: 'f'})
-        .then(({result}) => this.spots = result)
+      Get(`scenics/${this.$route.params.id}/spots`, { s: 10, type: 'f'})
+        .then(({total, result}) => {
+          this.spots = result
+          this.total = total
+          this.page = 1
+
+          setTimeout(() => {
+            const $loadMore = document.getElementById('load-more')
+            const loaderWatcher = scrollMonitor.create($loadMore)  
+
+            loaderWatcher.enterViewport(() => {
+              if (this.page >= this.total) {
+                this.nomore = true
+                return
+              }
+
+              const query = {
+                s: 10,
+                type: 'f',
+                p: this.page + 1
+              }
+
+              Get(`scenics/${this.$route.params.id}/spots`, query)
+                .then(({result}) => {
+                  this.spots = this.spots.concat(result)
+                  this.page ++
+                })
+                .catch(err => {})
+            })
+          }, 500)
+        })
         .catch(err => this.err = err)
 
       // Fetch scenics name

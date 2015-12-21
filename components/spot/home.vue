@@ -12,7 +12,8 @@
     </a>
   </header>
   <ad></ad>
-  <section class="scenic-section">
+  <section class="scenic-section" 
+    v-if="spot.voice_url">
     <span class="play-audio">语音解说</span>
     <audio v-bind:src="spot.voice_url" controls></audio>
   </section>
@@ -139,7 +140,7 @@
           return
 
         this.currentTab = type
-        
+
         Get(`spots/${this.spot.id}/nearby`, query)
           .then(({result}) => this.nearby = result)
           .catch(err => this.err = err)
