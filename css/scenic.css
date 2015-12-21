@@ -121,6 +121,7 @@
   margin: 0px;
   padding: 0px;
   width: 100%;
+  z-index: -10;
 }
 
 .scenic-photo-thumbnail {

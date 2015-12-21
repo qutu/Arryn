@@ -49,7 +49,7 @@
 
             // Search all spots x,y
             if (!spotId)
-              return Get(`scenics/${this.$route.params.id}/spots`)
+              return Get(`scenics/${this.$route.params.id}/spots`, { type: 's' })
 
             $map.addEventListener('zoomend', reloadNearbtSpots)
             $map.addEventListener('tilesloaded', reloadNearbtSpots)
