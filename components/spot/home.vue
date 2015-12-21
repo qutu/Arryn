@@ -105,7 +105,7 @@
       },
       expand(e) {
         const desc = e.target.parentElement
-        desc.style.maxHeight = '200px'
+        desc.style.maxHeight = '3000px'
         e.target.style.display = 'none'
       },
       goto(spotId) {
