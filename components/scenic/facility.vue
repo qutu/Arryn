@@ -30,6 +30,7 @@
   import { Get } from '../../libs/api'
 
   export default {
+    name: 'Facility',
     data() {
       return {
         name: '返回',

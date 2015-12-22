@@ -57,6 +57,7 @@
   import swipe from '../swipe.vue'
 
   export default {
+    name: 'ScenicHome',
     components: {
       ad,
       swipe

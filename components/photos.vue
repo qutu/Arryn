@@ -22,6 +22,7 @@
   import { formatPhotos, openSwipe } from '../libs/utils'
 
   export default {
+    name: 'Photos',
     components: {
       swipe,
     },

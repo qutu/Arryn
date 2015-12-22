@@ -70,6 +70,7 @@
   import ad from '../ad.vue'
 
   export default {
+    name: 'SpotHome',
     components: {
       ad
     },
@@ -85,6 +86,9 @@
     },
     route: {
       data() {
+        // Reset this currentTab
+        this.currentTab = 'spot'
+
         Get(`scenics/${this.$route.params.id}/spots/${this.$route.params.spotId}`)
           // Fetch spot details
           .then(({result}) => {
@@ -94,7 +98,7 @@
             if (result.main_img_url)
               this.cover = `url(${result.main_img_url})`
 
-            return Get(`spots/${this.spot.id}/nearby`)
+            return Get(`spots/${this.spot.id}/nearby`, { type: 's' })
           })
           // fetch photos
           .then(({result}) => {
@@ -104,8 +108,7 @@
           // Fetch nearby spots
           .then(({result}) => this.photos = result)
           .catch(err => this.err = err)
-      },
-      canReuse: false
+      }
     },
     methods: {
       showExpand(s) {

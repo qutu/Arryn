@@ -15,6 +15,7 @@
   import { ak } from '../libs/consts'
 
   export default {
+    name: 'Map',
     data() {
       return {
         err: null,
@@ -72,9 +73,7 @@
                   
                   self.addToMap(json.contents)
                 })
-                .catch(err => {
-                  // ignore error
-                })
+                .catch(err => {})
             }
           })
           .then(({result}) => this.addToMap(result))
