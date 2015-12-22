@@ -1,7 +1,6 @@
 <template>
   <header class="sub-header map-header">
-    <a v-link="{ path: goBack() }" 
-      class="back">
+    <a v-link="{ path: goBack() }" class="back">
       <i class="material-icons">chevron_left</i>
     </a>
   </header>

@@ -15,11 +15,11 @@ export default {
     component: scenic,
     subRoutes: {
       '/': {
-        name: 'scenicHome',
+        name: 'scenic',
         component: scenicHome
       },
       '/facility': {
-        name: 'scenicFacility',
+        name: 'facility',
         component: scenicSpotsFacility
       },
       '/photos': {
@@ -31,7 +31,7 @@ export default {
         component: map
       },
       '/tour': {
-        mame: 'tour',
+        name: 'tour',
         component: tour
       },
       '/spots': {

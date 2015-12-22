@@ -1,13 +1,12 @@
 <template>
   <header class="scenic-header clearfix" 
-    v-bind:style="{ 'background-image': cover }">
+    :style="{ 'background-image': cover }">
     <h1 class="scenic-title">{{ spot.name }}</h1>
-    <a v-link="{ path: $route.path + '/map' }" 
+    <a v-link="{ name: 'spotMap', params: { id: $route.params.id, spotId: $route.params.spotId } }" 
       class="scenic-map-button">
       <i class="material-icons">place</i>
     </a>
-    <a v-link="{ path: '/scenics/' + $route.params.id + '/spots' }" 
-      class="back">
+    <a v-link="{ name: 'spots', params: { id: $route.params.id } }" class="back">
       <i class="material-icons">chevron_left</i>
     </a>
   </header>
@@ -15,7 +14,7 @@
   <section class="scenic-section" 
     v-if="spot.voice_url">
     <span class="play-audio">语音解说</span>
-    <audio v-bind:src="spot.voice_url" controls></audio>
+    <audio :src="spot.voice_url" controls></audio>
   </section>
   <section class="scenic-section">
     <h3 class="scenic-title">简介</h3>

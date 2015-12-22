@@ -1,6 +1,8 @@
 <template>
   <header class="sub-header">
-    <a v-link="{ path: '/scenics/' + $route.params.id }" class="back"><i class="material-icons">chevron_left</i> {{ name }}</a>
+    <a v-link="{ name: 'scenic', params: { id: $route.params.id } }" class="back">
+      <i class="material-icons">chevron_left</i> {{ name }}
+    </a>
   </header>
   <div class="spots cleafix" 
     v-if="spots.length">
@@ -8,7 +10,7 @@
       v-for="spot in spots" 
       @click="goto(spot.id)">
       <div class="spot-thumbnail">
-        <img v-bind:src="spot.main_img_url" alt="">
+        <img :src="spot.main_img_url" alt="">
       </div>
       <div class="spot-text">
         <h4 class="spot-name">{{ spot.name }}</h4>

@@ -9,7 +9,7 @@
       <div class="scenic-photo-thumbnail" 
         @click="openSwipe(photo)"
         v-for="photo in photos">
-        <img v-bind:src="photo.src" alt="">
+        <img :src="photo.src" alt="">
       </div>
     </div>
   </section>

@@ -2,13 +2,13 @@
   <header class="scenic-header clearfix" 
     v-bind:style="{ 'background-image': cover }">
     <h1 class="scenic-title">{{ scenic.name }} <span class="level">{{ scenic.level }}A</span></h1>
-    <a v-link="{ path: $route.path + '/map' }" class="scenic-map-button"><i class="material-icons">place</i></a>
+    <a v-link="{ name: 'map', params: { id: $route.params.id } }" class="scenic-map-button"><i class="material-icons">place</i></a>
   </header>
   <nav class="scenic-nav">
     <ul class="clearfix">
-      <li class="spot-item"><a v-link="{ path: $route.path + '/spots' }">景点</a></li>
-      <li class="facility-item"><a v-link="{ path: $route.path + '/facility' }">设施</a></li>
-      <li class="tour-item"><a v-link="{ path: $route.path + '/tour' }">导览</a></li>
+      <li class="spot-item"><a v-link="{ name: 'spots', params: { id: $route.params.id }}">景点</a></li>
+      <li class="facility-item"><a v-link="{ name: 'facility', params: { id: $route.params.id } }">设施</a></li>
+      <li class="tour-item"><a v-link="{ name:'tour', params: { id: $route.params.id } }">导览</a></li>
     </ul>
   </nav>
   <ad></ad>
