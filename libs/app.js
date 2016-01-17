@@ -22,13 +22,11 @@ Vue.use(VueRouter)
 // register filters globally
 Vue.filter('limit', limit)
 
-const routeConfigs = {
-  hashbang: false,
+const router = new VueRouter({
   history: true,
-  saveScrollPosition: true
-}
-const router = new VueRouter(routeConfigs)
+  saveScrollPosition: true,
+})
 
 router.map(routes)
 router.beforeEach(() => window.scrollTo(0, 0))
-router.start(new Vue({}), '#app')
+router.start(Vue.extend({}), '#app')
